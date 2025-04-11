@@ -465,7 +465,13 @@ class Solver(object):
         
         # Build and script the model
         self.net = build_model(self.config.network, self.config.arch)
-        if config.mode == 'test' or config.mode == 'train':
+        if config.mode == 'train':
+            if self.config.load == '':
+                print("Loading pre-trained imagenet weights for fine tuning")
+                self.net.JLModule.load_pretrained_model(self.config.pretrained_model
+                                                        if isinstance(self.config.pretrained_model, str)
+                                                        else self.config.pretrained_model[self.config.network])
+        if config.mode == 'test':
             print(f'Loading pre-trained model from {self.config.model}...')
             self.net.load_state_dict(torch.load(self.config.model, map_location=torch.device('cpu')))
         
