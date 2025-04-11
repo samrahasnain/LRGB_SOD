@@ -144,7 +144,8 @@ class JL_DCF(nn.Module):
         coarse_sal_rgb = self.coarse_layer(conv4r)
         rgb_h, rgb_m = self.gde_layers(conv3r, conv4r, coarse_sal_rgb)
         sal_final, edge_rgbd0 = self.decoder(lde_out, rgb_h, rgb_m)
-        return sal_final, coarse_sal_rgb, edge_rgbd0, lde_out, rgb_h, rgb_m
+        return sal_final, coarse_sal_rgb, edge_rgbd0
+        #, lde_out, rgb_h, rgb_m
 
 def build_model(network='conformer', base_model_cfg='conformer'):
     backbone = mobilenet_v2()
